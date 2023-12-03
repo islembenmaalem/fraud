@@ -1,29 +1,26 @@
 import streamlit as st
-import pandas as pd
-import numpy as np
-import mlflow.pyfunc
-import os
 from dotenv import load_dotenv
+import requests
 
 load_dotenv()
 
-mlflow_username = os.getenv('MLFLOW_TRACKING_USERNAME')
-mlflow_password = os.getenv('MLFLOW_TRACKING_PASSWORD')
+#mlflow_username = os.getenv('MLFLOW_TRACKING_USERNAME')
+#mlflow_password = os.getenv('MLFLOW_TRACKING_PASSWORD')
 
-print(f'MLFLOW_TRACKING_USERNAME: {mlflow_username}')
-print(f'MLFLOW_TRACKING_PASSWORD: {mlflow_password}')
-os.environ['MLFLOW_TRACKING_USERNAME']= mlflow_username
-os.environ["MLFLOW_TRACKING_PASSWORD"] = "580d73690283aa12650dff07f3881600d00f83c3"
-mlflow.set_tracking_uri('https://dagshub.com/islembenmaalem/mlops_project.mlflow')
-mlflow.set_experiment("idsd-sd-experiment")
+#print(f'MLFLOW_TRACKING_USERNAME: {mlflow_username}')
+#print(f'MLFLOW_TRACKING_PASSWORD: {mlflow_password}')
+#os.environ['MLFLOW_TRACKING_USERNAME']= mlflow_username
+#os.environ["MLFLOW_TRACKING_PASSWORD"] = "580d73690283aa12650dff07f3881600d00f83c3"
+#mlflow.set_tracking_uri('https://dagshub.com/islembenmaalem/mlops_project.mlflow')
+#mlflow.set_experiment("idsd-sd-experiment")
 
 
-df_mlflow = mlflow.search_runs(filter_string="metrics.F1_score_test<1")
-run_id = df_mlflow.loc[df_mlflow['metrics.F1_score_test'].idxmax()]['run_id']
+#df_mlflow = mlflow.search_runs(filter_string="metrics.F1_score_test<1")
+#run_id = df_mlflow.loc[df_mlflow['metrics.F1_score_test'].idxmax()]['run_id']
 
-logged_model = f'runs:/{run_id}/ML_models'
+#logged_model = f'runs:/{run_id}/ML_models'
 
-model = mlflow.pyfunc.load_model(logged_model)
+#model = mlflow.pyfunc.load_model(logged_model)
 
 st.title("Fraud Detector App")
 
@@ -281,14 +278,21 @@ input_data = {
     "state": state,
     "job": job
 }
-
+input_data_json={
+  "features": [
+  input_data
+    ]
+}
+API_URL = "http://localhost:8000"
+API_URL = "http://backend:8000"
 # Define a function to make predictions
 def predict_fraud(data):
-    input_df = pd.DataFrame([data])
-    prediction = int(np.round(model.predict(input_df)[0]))  # Adjust if needed
-    return prediction
+    #input_df = pd.DataFrame([data])
+  #  prediction = int(np.round(model.predict(input_df)[0]))  # Adjust if needed
+    response_json = requests.post(f"{API_URL}/predict/", json=input_data_json)
+    return response_json.json()
 
 if st.button("Predict"):
-    prediction = predict_fraud(input_data)
+    response_json = predict_fraud(input_data)
     st.write("## Prediction")
-    st.write("Fraud: {}".format(prediction))
+    st.write("Fraud: {}".format(response_json["results"][0]["fraud"]))

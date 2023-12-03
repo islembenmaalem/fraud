@@ -1,0 +1,42 @@
+
+"""{
+  "features": [
+    {
+      "amt": 1000.0,
+      "cc_num": 2703186189652095,
+      "hour": 15,
+      "category": "misc_net",
+      "month": 10,
+      "city_pop": 10000,
+      "age": 35,
+      "gender": "M",
+      "zip": 12345,
+      "state": "NC",
+      "job": "Dance movement psychotherapist"
+    },
+      {
+      "amt": 1000.0,
+      "cc_num": 2703186189652095,
+      "hour": 15,
+      "category": "misc_net",
+      "month": 10,
+      "city_pop": 10000,
+      "age": 35,
+      "gender": "M",
+      "zip": 12345,
+      "state": "NC",
+      "job": "Dance movement psychotherapist"
+    }
+  ]
+} C:\Users\MSI\anaconda3\envs\mlops\projet mlops 23\notebook\mlops_project\Data\datatest5rows.csv
+"""
+$ cd notebook/mlops_project/src
+source ~/anaconda3/etc/profile.d/conda.sh
+ export PATH="~/anaconda3/bin:$PATH" 
+  conda activate mlops 
+  streamlit run main_st.py
+uvicorn app:app
+streamlit run main_st.py
+
+
+$ docker-compose up --build 

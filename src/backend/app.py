@@ -8,6 +8,13 @@ import mlflow.pyfunc
 import os
 import os
 from dotenv import load_dotenv
+from pydantic import BaseModel
+import pandas as pd
+import numpy as np
+from fastapi.responses import JSONResponse
+import mlflow.pyfunc
+from typing import List, Dict
+import uvicorn
 
 load_dotenv()
 
@@ -30,7 +37,6 @@ logged_model = f'runs:/{run_id}/ML_models'
 model = mlflow.pyfunc.load_model(logged_model)
 
 
-from fastapi import FastAPI, Request, Response
 from pydantic import BaseModel
 import pandas as pd
 import numpy as np
@@ -93,43 +99,10 @@ async def predict(data: InputData):
     return JSONResponse(content=response_object)
 
 if __name__ == "__main__":
-    uvicorn.run("app_fast_api:app", host="localhost", port=8000, log_level="debug")
+    uvicorn.run("app:app", host="0.0.0.0", port=8000, log_level="debug")
 
 
 
 
 
-"""{
-  "features": [
-    {
-      "amt": 1000.0,
-      "cc_num": 2703186189652095,
-      "hour": 15,
-      "category": "misc_net",
-      "month": 10,
-      "city_pop": 10000,
-      "age": 35,
-      "gender": "M",
-      "zip": 12345,
-      "state": "NC",
-      "job": "Dance movement psychotherapist"
-    },
-      {
-      "amt": 1000.0,
-      "cc_num": 2703186189652095,
-      "hour": 15,
-      "category": "misc_net",
-      "month": 10,
-      "city_pop": 10000,
-      "age": 35,
-      "gender": "M",
-      "zip": 12345,
-      "state": "NC",
-      "job": "Dance movement psychotherapist"
-    }
-  ]
-}
-"""
 
-
-""""C:\Users\MSI\anaconda3\envs\mlops\projet mlops 23\notebook\mlops_project\Data\datatest5rows.csv"""
