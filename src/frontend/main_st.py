@@ -291,7 +291,7 @@ API_URL = "https://bb-96pa.onrender.com"
 def predict_fraud(data):
     #input_df = pd.DataFrame([data])
   #  prediction = int(np.round(model.predict(input_df)[0]))  # Adjust if needed
-    response_json1 = requests.post(f"https://backendfrauddetection.onrender.com/predict/", json=input_data_json)
+    response_json1 = requests.post(f"https://ba-leaw.onrender.com/predict/", json=input_data_json)
     response_json = requests.post(f"https://bb-96pa.onrender.com/predict/", json=input_data_json)
     return response_json1.json(),response_json.json()
 
@@ -299,5 +299,4 @@ if st.button("Predict"):
     response_json1,response_json = predict_fraud(input_data)
     st.write("## Prediction")
     st.write("Fraud: {}".format(response_json1["results"][0]["fraud"]))
-    st.write("## Prediction")
-    st.write("Fraud: {}".format(response_json["results"][0]["fraud"]))
+    
