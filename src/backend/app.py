@@ -57,7 +57,7 @@ def read_root():
 class InputData(BaseModel):
     features: List[dict]
 
-"""@app.post("/predict_from_csv/")
+@app.post("/predict_from_csv/")
 async def predict_from_csv(file_path: str):
     # Read the CSV data
     input_df = pd.read_csv(file_path)
@@ -75,7 +75,7 @@ async def predict_from_csv(file_path: str):
         })
 
     return results
-"""
+
 @app.post("/predict/")
 async def predict(data: InputData):
     results = []
