@@ -51,7 +51,7 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    return {"Hello": "to fraud detector app"}
+    return {"Hello": "to fraud detector app!"}
 
 
 class InputData(BaseModel):
