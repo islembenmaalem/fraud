@@ -283,8 +283,10 @@ input_data_json={
   input_data
     ]
 }
-API_URL = "http://localhost:8000"
-API_URL = "http://backend:8000"
+#API_URL = "http://localhost:8000"
+#API_URL = "http://backend:8000"
+API_URL = "https://backendfrauddetection.onrender.com"
+API_URL = "https://bb-96pa.onrender.com"
 # Define a function to make predictions
 def predict_fraud(data):
     #input_df = pd.DataFrame([data])
